@@ -17,6 +17,7 @@
 package com.example.android.codelabs.paging.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -55,6 +56,7 @@ class SearchRepositoriesActivity : AppCompatActivity() {
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
             viewModel.searchRepo(query).collectLatest {
+                Log.d("search", "submitData: $it")
                 adapter.submitData(it)
             }
         }
@@ -149,7 +151,6 @@ class SearchRepositoriesActivity : AppCompatActivity() {
     private fun updateRepoListFromInput() {
         binding.searchRepo.text.trim().let {
             if (it.isNotEmpty()) {
-                binding.list.scrollToPosition(0)
                 search(it.toString())
             }
         }

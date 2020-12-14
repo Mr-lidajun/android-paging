@@ -25,6 +25,7 @@ class GithubRemoteMediator(
 ) : RemoteMediator<Int, Repo>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Repo>): MediatorResult {
+
         val page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
